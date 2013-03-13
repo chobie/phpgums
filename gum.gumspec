@@ -1,0 +1,16 @@
+Gum::Specification(function($s){
+    $s->name = "gum";
+    $s->version = "0.0.1";
+    $s->authors = ["Shuhei Tanuma"];
+    $s->email = ["chobieeee@php.net"];
+    $s->homepage = "";
+    $s->summary = "TODO";
+    $s->description = "Description";
+    $s->files = split("\n", `git ls-files`);
+    $s->test_files = split("\n", `git ls-files -- {test,spec,features}/*`);
+    $s->executables = array_map("basename", split("\n", `git ls-files -- bin/*`));
+    $s->require_paths = ["src"];
+
+    $s->addDependency("archive-minitar", ">=0.0.2");
+    $s->addAutoload("Gum", "src");
+});

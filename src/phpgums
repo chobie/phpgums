@@ -1,0 +1,3 @@
+<?php
+// pretty hack
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . "gum.php";

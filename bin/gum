@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PHP_EXE=`which php`
+PHP_INCLUDES=`$PHP_EXE -r "echo ini_get('include_path');"`
+GUM_HOME="$HOME/.gum/"
+GUM_VERSION="0.0.1"
+
+$PHP_EXE -d include_path="$GUM_HOME/gums/gum-$GUM_VERSION/src:$PHP_INCLUDES" -r "require 'phpgums';Gum_Application::run();" -- $@;
