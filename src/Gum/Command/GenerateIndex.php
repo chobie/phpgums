@@ -19,14 +19,8 @@ class Gum_Command_GenerateIndex
         }
 
         foreach ($gums as $gum) {
-            $tar = new Archive_Minitar_Reader($gum, array("gzip" => true));
-            foreach ($tar as $entry) {
-                if ($entry->getName() == "metadata.gz") {
-                    $data = gzdecode($entry->getContent());
-                    eval($data);
-                    break;
-                }
-            }
+            $package = new Gum_Package($gum);
+            eval($package->getMetaData());
         }
 
         $result = array();

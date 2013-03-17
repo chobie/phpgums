@@ -15,11 +15,9 @@ class Gum_Finder
         $dir = new DirectoryIterator($basedir);
         $specs = array();
         foreach ($dir as $file) {
-            if (!$file->isDot()) {
-                if(!$file->isDir()) {
-                    if (strpos($file->getFileName(), $spec_name) !== false) {
-                        $specs[] = $file->getPathname();
-                    }
+            if (!$file->isDot() && !$file->isDir()) {
+                if (strpos($file->getFileName(), $spec_name) !== false) {
+                    $specs[] = $file->getPathname();
                 }
             }
         }

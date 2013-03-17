@@ -16,7 +16,7 @@ class Gum_Command_Build
         $tar = new Archive_Minitar_Writer("{$spec->getName()}-{$spec->getVersion()}.gum", array("gzip" => true));
 
         // Todo: should use php://memory at here. but it seems can't use with gzopen, ughh.
-        $data_tar = new Archive_Tar_Minitar_Writer("data.tar.gz");
+        $data_tar = new Archive_Minitar_Writer("data.tar.gz");
         foreach ($spec->getFiles() as $file) {
             $data_tar->addFile($file);
         }

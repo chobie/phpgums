@@ -3,17 +3,18 @@ class Gum_Command_Uninstall
 {
     public static function run($target)
     {
-        $home = getenv("HOME");
-        $sugar_home  = "$home/.gum";
-        $sugar_cache = $sugar_home . "/cache";
-        $sugar_bin   = $sugar_home . "/bin";
-        $sugar_tmp   = $sugar_home . "/tmp";
-        $sugar_lib = $sugar_home . "/gums";
-        $sugar_specs = $sugar_home . "/specifications";
+        $home      = getenv("HOME");
+        $gum_home  = ($gum_home = getenv("GUM_HOME")) ? $gum_home : $home . "/.gum";
+        $gum_cache = $gum_home . "/cache";
+        $gum_bin   = $gum_home . "/bin";
+        $gum_tmp   = $gum_home . "/tmp";
+        $gum_lib   = $gum_home . "/gums";
+        $gum_specs = $gum_home . "/specifications";
+
         $basename = basename($target, ".gum");
 
         // Todo: read Spec and delete files (bin, lib, specifications)
-        `rm -f $sugar_specs/{$target}-*.gumspec`;
-        `rm -rf $sugar_lib/{$target}-*`;
+        `rm -f {$gum_specs}/{$target}-*.gumspec`;
+        `rm -rf {$gum_lib}/{$target}-*`;
     }
 }

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ "$GUM_HOME" = "" ]; then
+    GUM_HOME=$HOME/.gum
+fi
+
+if [ "$GUM_SERVER" = "" ]; then
+    GUM_SERVER="localhost:3000"
+fi
+
+if [ ! -d $GUM_HOME ]; then
+    mkdir $GUM_HOME
+    mkdir $GUM_HOME/bin
+    mkdir $GUM_HOME/cache
+    mkdir $GUM_HOME/tmp
+    mkdir $GUM_HOME/doc
+    mkdir $GUM_HOME/gums
+    mkdir $GUM_HOME/specifications
+
+    cd $GUM_HOME/cache
+    curl -OsS http://$GUM_SERVER/gums/gum-0.0.1.gum
+    mkdir $GUM_HOME/gums/gum-0.0.1
+    tar zxf gum-0.0.1.gum -O data.tar.gz | tar zxf - -C $GUM_HOME/gums/gum-0.0.1
+    tar zxf gum-0.0.1.gum -O metadata.gz | gzcat >  $GUM_HOME/specifications/gum-0.0.1.gumspec
+    cp -a $GUM_HOME/gums/gum-0.0.1/bin/gum $GUM_HOME/bin/gum
+    chmod +x $GUM_HOME/bin/gum
+
+    curl -OsS http://$GUM_SERVER/gums/archive-minitar-0.0.2.gum
+
+    mkdir $GUM_HOME/gums/archive-minitar-0.0.2
+    tar zxf archive-minitar-0.0.2.gum -O data.tar.gz | tar zxf - -C $GUM_HOME/gums/archive-minitar-0.0.2
+    tar zxf archive-minitar-0.0.2.gum -O metadata.gz | gzcat >  $GUM_HOME/specifications/archive-minitar-0.0.2.gumspec
+
+    echo "gum installed successfully. please add following env to your bashrc"
+    echo "export GUM_HOME=$GUM_HOME"
+    echo "export PATH=\$GUM_HOME/bin:\$PATH"
+else
+    echo "directory $GUM_HOME exists. please remove it first."
+fi

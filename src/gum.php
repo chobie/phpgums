@@ -35,17 +35,12 @@ if (!function_exists("gzdecode")) {
     }
 }
 
-class YourGum
-{
-    const VERSION = '1.0';
-}
-
-function gum($spec)
+function gum($spec, $version = null)
 {
     return require_phpgum($spec);
 }
 
-function require_phpgum($spec)
+function require_phpgum($spec, $version = null)
 {
     static $finder = false;
 
